@@ -1,11 +1,10 @@
-#TODO: Use json to save user data; Use matplotlib dates to make that aspect better
 import requests, time, re, json, sys, datetime, os
 import matplotlib.pyplot as plt
 import numpy as np
 from pathlib import Path
 
 config = json.load(open("config.json"))
-interval = config["interval"]#Seconds
+interval = config["interval"]
 user_ids = config["user_ids"]
 
 ranks = []
