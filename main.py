@@ -4,9 +4,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 from pathlib import Path
 
-interval = 30 #Seconds
-#User id found at end of url when looking at page
-user_ids = [330, 323, 2024, 3154]
+config = json.load(open("config.json"))
+interval = config["interval"]#Seconds
+user_ids = config["user_ids"]
 
 ranks = []
 times = []
@@ -73,6 +73,11 @@ def trim_two_data(data_1, data_2):
 			trimmed_data_2.append(data_2[i])
 	return (trimmed_data_1, trimmed_data_2)
 
+def reloadConfigJson():
+	global config
+	json.dump(config, open("config.json", "w"), indent=4)
+	config = json.load(open("config.json"))
+
 def setup_plot():
 	plt.gca().invert_yaxis()
 	plt.xlabel("Time")
@@ -96,7 +101,6 @@ if __name__ == "__main__":
 			os.makedirs("Users")
 		print("Gathering new data")
 		plt.clf()
-		# plt.gca().invert_yaxis()
 		setup_plot()
 		for user in users:
 			returned_rank = get_rank(user.user_id)
